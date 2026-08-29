@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><script src="auth-guard.js"></script>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>心晴 AI · 对话</title>
+  <style>html{background:#F6F2EA}</style>
+  <script src="page-transition.js" defer></script>
+  <style>
+    :root{--paper:#F6F2EA;--ink:#25302A;--muted:#5E6B62;--sage:#5C7A63;--dark:#43604B;--deep:#2E4335;--mint:#E5EEE6;--line:#E4DECF;--shadow:0 26px 60px -22px rgba(46,67,53,.24)}
+    *{box-sizing:border-box}html,body{height:100%;margin:0}body{overflow:hidden;background:var(--paper);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.app{position:relative;isolation:isolate;height:100%;overflow:hidden;background:radial-gradient(ellipse at 88% 18%,rgba(220,235,218,.72),transparent 32%),radial-gradient(ellipse at 9% 80%,rgba(246,232,221,.72),transparent 38%)}.blobs{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}.blob{position:absolute;border-radius:46% 54% 62% 38%/44% 46% 54% 56%;filter:blur(7px);opacity:.75;animation:breathe var(--dur) ease-in-out infinite alternate}.b1{width:min(46vw,540px);height:min(46vw,540px);right:-30px;top:-85px;--dur:18s;background:radial-gradient(circle at 36% 38%,#EBF4EB,#D5E6D5 68%,transparent)}.b2{width:min(34vw,380px);height:min(34vw,380px);left:-145px;bottom:-170px;--dur:22s;background:radial-gradient(circle,#F6E8DD,#EBD2C1 68%,transparent)}.b3{width:min(21vw,236px);height:min(21vw,236px);right:27%;top:38%;--dur:26s;background:radial-gradient(circle,#DDEBE0,transparent 72%)}@keyframes breathe{to{transform:translate(16px,-12px) scale(1.07);border-radius:53% 47% 39% 61%/50% 58% 42% 50%}}
+    .top{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(22px,4vw,58px);border-bottom:1px solid rgba(228,222,207,.8);background:rgba(246,242,234,.55);backdrop-filter:blur(10px)}.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700}.mark{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:var(--sage);color:#EAF0E9}.back{color:var(--dark);font-size:.9rem;text-decoration:none}.back:hover{text-decoration:underline}
+    .layout{display:grid;place-items:center;height:calc(100% - 72px);padding:34px 24px}.chat-card{display:flex;flex-direction:column;width:min(900px,100%);height:min(690px,calc(100vh - 140px));border:1px solid rgba(255,255,255,.75);border-radius:26px;background:rgba(255,255,255,.66);box-shadow:var(--shadow);backdrop-filter:blur(16px);overflow:hidden}.chat-head{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid rgba(228,222,207,.8)}.chat-title{font:400 1.45rem Georgia,serif}.chat-status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.82rem}.dot{width:8px;height:8px;border-radius:50%;background:#6B9274;box-shadow:0 0 0 5px rgba(107,146,116,.16)}.messages{flex:1;padding:32px;overflow:auto}.welcome{max-width:520px;padding:20px 22px;border:1px solid rgba(228,222,207,.75);border-radius:18px 18px 18px 4px;background:rgba(251,249,244,.82);color:var(--muted)}.welcome strong{display:block;margin-bottom:6px;color:var(--deep);font:400 1.22rem Georgia,serif}.composer{display:flex;align-items:flex-end;gap:10px;padding:18px;border-top:1px solid rgba(228,222,207,.8);background:rgba(251,249,244,.55)}textarea{flex:1;min-height:54px;max-height:130px;padding:15px 17px;resize:none;border:1px solid var(--line);border-radius:15px;outline:0;background:rgba(255,255,255,.76);color:var(--ink);font:inherit}textarea:focus{border-color:var(--sage);background:#fff}.send{display:grid;place-items:center;width:52px;height:52px;border:0;border-radius:50%;background:var(--sage);color:#F1F6F0;font-size:1.25rem;cursor:pointer}.send:hover{background:var(--dark)}@media(max-width:620px){.top{padding-inline:20px}.layout{padding:18px 12px}.chat-card{height:calc(100vh - 108px);border-radius:20px}.messages{padding:20px}.composer{padding:12px}.chat-head{padding:18px}.chat-title{font-size:1.25rem}}@media(prefers-reduced-motion:reduce){.blob{animation:none}}
+  </style>
+</head>
+<body><main class="app"><div class="blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div><header class="top"><a class="brand" href="index.html" aria-label="返回首页"><span class="mark">心</span><span>心晴 AI</span></a><a class="back" href="index.html">← 返回首页</a></header><section class="layout"><section class="chat-card" aria-label="心晴 AI 对话"><div class="chat-head"><span class="chat-title">你好，我是心晴 AI</span><span class="chat-status"><i class="dot"></i>安全陪伴中</span></div><div class="messages"><div class="welcome">你可以告诉我最近发生了什么，或者直接说说你现在的感受。我会先了解你的状态，再陪你一步一步梳理。</div></div><form class="composer"><textarea aria-label="输入消息" placeholder="说说你最近的状态……"></textarea><button class="send" aria-label="发送" type="submit">↑</button></form></section></section></main><script>document.querySelector('.composer').addEventListener('submit',e=>{e.preventDefault();const t=document.querySelector('textarea');if(t.value.trim()){const m=document.createElement('div');m.className='welcome';m.style.margin='18px 0 0 auto';m.style.borderRadius='18px 18px 4px 18px';m.style.background='rgba(229,238,230,.9)';m.textContent=t.value.trim();document.querySelector('.messages').append(m);t.value='';m.scrollIntoView({behavior:'smooth'})}});</script></body></html>
+<style>
+  .app .top{background:rgba(246,242,234,.42)}
+  .app .layout{display:block;height:calc(100% - 72px);padding:0 24px}
+  .app .chat-card{position:relative;display:block;width:min(900px,100%);height:100%;margin:0 auto;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;overflow:visible}
+  .app .chat-head{height:76px;padding:24px 0;border-bottom:0}
+  .app .messages{height:calc(100% - 76px);padding:32px 0 150px;overflow:auto}
+  .app .welcome{max-width:760px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--muted)}
+  .app .welcome strong{margin-bottom:12px;color:var(--deep);font:400 1.28rem Georgia,serif}
+  .app .messages .welcome[style]{margin:30px 0 0!important;padding-left:0;text-align:right;color:var(--deep)}
+  .app .messages .welcome[style] strong{display:none}
+  .app .composer{position:absolute;left:50%;bottom:28px;z-index:3;width:min(760px,calc(100% - 12px));margin:0;padding:9px;border:1px solid rgba(255,255,255,.78);border-radius:19px;background:rgba(255,255,255,.72);box-shadow:0 18px 46px -20px rgba(46,67,53,.28);backdrop-filter:blur(14px);transform:translateX(-50%)}
+  .app .composer textarea{min-height:50px;padding:13px 14px;border:0;background:transparent;box-shadow:none}
+  .app .composer textarea:focus{background:transparent;border:0}
+  @media(max-width:620px){.app .layout{padding:0 16px}.app .chat-head{padding:20px 0}.app .messages{padding-top:18px}.app .composer{bottom:16px;width:calc(100% - 4px)}}
+</style>
+<style>
+  .app .messages .welcome[style]{width:fit-content;max-width:min(70%,520px);padding:11px 16px!important;margin:26px 0 0 auto!important;border:1px solid rgba(92,122,99,.2);border-radius:16px 16px 4px 16px;background:rgba(205,229,211,.96)!important;box-shadow:0 8px 18px -14px rgba(46,67,53,.55);color:var(--deep);text-align:left}
+</style>
+<style>
+  .messages{scrollbar-width:none;-ms-overflow-style:none}.messages::-webkit-scrollbar{display:none;width:0;height:0}.stream-line{max-width:760px;margin:30px 0 0;color:var(--muted);white-space:pre-wrap;line-height:1.8}.stream-line.user{width:fit-content;max-width:min(70%,520px);margin-left:auto;padding:11px 16px;border:1px solid rgba(92,122,99,.2);border-radius:16px 16px 4px 16px;background:rgba(205,229,211,.96);box-shadow:0 8px 18px -14px rgba(46,67,53,.55);color:var(--deep);line-height:1.55}.stream-line.assistant{padding-bottom:4px;white-space:normal;line-height:1.9}.assistant-paragraph{margin:0 0 14px}.assistant-paragraph:last-child{margin-bottom:0}.assistant-steps{margin:4px 0 14px;padding-left:1.5rem}.assistant-steps li{margin:9px 0;padding-left:4px}.assistant-steps strong{color:var(--deep);font-weight:700}.stream-line.pending:after{display:inline-block;width:5px;height:1em;margin-left:3px;vertical-align:-2px;background:var(--sage);content:"";animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}.chat-status.busy{color:var(--sage-dark)}
+</style>
+<script>
+(()=>{
+  const API_BASE='http://localhost:8080';
+  const form=document.querySelector('.composer'), input=document.querySelector('.composer textarea'), messages=document.querySelector('.messages'), status=document.querySelector('.chat-status');
+  let busy=false;
+  const userId=Number(new URLSearchParams(location.search).get('userId')||localStorage.getItem('mood_user_id')||'1');
+  const context={user_id:Number.isSafeInteger(userId)&&userId>0?userId:null,session_id:crypto.randomUUID(),metadata:{client:'mood-web'}};
+  const addLine=(text,kind)=>{const node=document.createElement('div');node.className='stream-line '+kind;node.textContent=text;messages.append(node);messages.scrollTop=messages.scrollHeight;return node};
+  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  const createTyper=node=>{
+    const queue=[];let active=false,stopped=false,pendingChars=0;const idleWaiters=[];
+    const finishIdle=()=>{if(active||queue.length)return;while(idleWaiters.length)idleWaiters.shift()()};
+    const drain=async()=>{
+      if(active||stopped)return;active=true;
+      while(queue.length&&!stopped){
+        const chunk=queue.shift();
+        for(const char of Array.from(chunk)){
+          if(stopped)break;
+          node.textContent+=char;pendingChars--;messages.scrollTop=messages.scrollHeight;
+          const delay=/[。！？!?，,]/.test(char)?45:Math.max(7,22-Math.floor(pendingChars/35)*3);
+          await sleep(delay);
+        }
+      }
+      active=false;finishIdle();
+    };
+    return{
+      append(text){if(stopped||!text)return;const value=String(text);queue.push(value);pendingChars+=Array.from(value).length;void drain()},
+      flush(){if(stopped||(!active&&!queue.length))return Promise.resolve();return new Promise(resolve=>idleWaiters.push(resolve))},
+      stop(){stopped=true;queue.length=0;pendingChars=0;active=false;finishIdle()}
+    };
+  };
+  const setStatus=(text,active=false)=>{if(status){status.classList.toggle('busy',active);status.innerHTML='<i class="dot"></i>'+text}};
+  const parseBlock=(block)=>{let event='message',raw='';for(const line of block.split(/\r?\n/)){if(line.startsWith('event:'))event=line.slice(6).trim();if(line.startsWith('data:'))raw+=line.slice(5).trim()}if(!raw)return null;try{return{event,data:JSON.parse(raw)}}catch{return{event,data:{}}}};
+  const appendInlineMarkdown=(target,text)=>{for(const part of text.split(/(\*\*[^*]+\*\*)/g)){if(!part)continue;if(part.startsWith('**')&&part.endsWith('**')){const strong=document.createElement('strong');strong.textContent=part.slice(2,-2);target.append(strong)}else{target.append(document.createTextNode(part.replace(/\*+/g,'')))}}};
+  const formatAssistantReply=node=>{
+    const raw=(node.textContent||'').replace(/\r/g,'').replace(/\*{3,}/g,'**').trim();if(!raw)return;
+    const normalized=raw.replace(/([。！？])\s*(?=\d+[.、]\s+)/g,'$1\n');
+    const fragment=document.createDocumentFragment();let list=null;
+    for(const line of normalized.split(/\n+/).map(item=>item.trim()).filter(Boolean)){
+      const item=line.match(/^(\d+)[.、]\s*(.+)$/);
+      if(item){if(!list){list=document.createElement('ol');list.className='assistant-steps';list.start=Number(item[1])}const li=document.createElement('li');appendInlineMarkdown(li,item[2]);list.append(li);fragment.append(list)}
+      else{list=null;const paragraph=document.createElement('p');paragraph.className='assistant-paragraph';appendInlineMarkdown(paragraph,line);fragment.append(paragraph)}
+    }
+    node.replaceChildren(fragment);
+  };
+  async function send(message){
+    const userLine=addLine(message,'user');void userLine;const assistant=addLine('','assistant pending'),typer=createTyper(assistant);setStatus('正在分析你的状态',true);
+    const body={message,context:{...context,request_id:'web-'+crypto.randomUUID()}};
+    try{
+      const response=await fetch(API_BASE+'/agent/gateway/orchestrate/stream',{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify(body)});
+      if(!response.ok||!response.body)throw new Error('HTTP '+response.status);
+      const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='',streamedText='',finalReply='';
+      while(true){const part=await reader.read();if(part.done)break;buffer+=decoder.decode(part.value,{stream:true});const blocks=buffer.split(/\n\n/);buffer=blocks.pop()||'';for(const raw of blocks){const packet=parseBlock(raw);if(!packet)continue;const d=packet.data;if(packet.event==='status'){setStatus(d.message||'正在处理',true)}else if(packet.event==='delta'){const value=d.content||'';streamedText+=value;typer.append(value)}else if(packet.event==='result'){finalReply=d.reply||''}else if(packet.event==='error'){throw new Error(d.message||'后端调用失败')}}}
+      if(finalReply&&streamedText!==finalReply){typer.stop();assistant.textContent=finalReply}else if(!streamedText&&finalReply){typer.append(finalReply)}
+      await typer.flush();
+      assistant.classList.remove('pending');if(!assistant.textContent)assistant.textContent='暂时没有收到回复，请稍后再试。';formatAssistantReply(assistant);setStatus('安全陪伴中');
+    }catch(error){typer.stop();assistant.classList.remove('pending');assistant.textContent='后端连接失败：'+error.message;assistant.style.color='#9C5D44';setStatus('连接未完成');}
+  }
+  async function initGreeting(){
+    const welcome=messages.querySelector('.welcome');if(!welcome)return;
+    const fallback='你可以告诉我最近发生了什么，或者直接说说你现在的感受。我会先了解你的状态，再陪你一步一步梳理。';
+    welcome.innerHTML='<span class="welcome-copy"></span>';
+    const copy=welcome.querySelector('.welcome-copy'),typer=createTyper(copy);setStatus('心晴正在准备问候',true);
+    try{
+      const response=await fetch(API_BASE+'/agent/gateway/init/stream',{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify({context:{...context,request_id:'web-'+crypto.randomUUID()}})});
+      if(!response.ok||!response.body)throw new Error('HTTP '+response.status);
+      const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='';
+      while(true){const part=await reader.read();if(part.done)break;buffer+=decoder.decode(part.value,{stream:true});const blocks=buffer.split(/\n\n/);buffer=blocks.pop()||'';for(const raw of blocks){const packet=parseBlock(raw);if(!packet)continue;const d=packet.data;if(packet.event==='status'){setStatus(d.message||'心晴正在准备问候',true)}else if(packet.event==='delta'){typer.append(d.content||'')}else if(packet.event==='error'){throw new Error(d.message||'主动问候生成失败')}}}
+      await typer.flush();
+      if(!copy.textContent.trim())copy.textContent=fallback;
+      setStatus('安全陪伴中');
+    }catch(error){typer.stop();copy.textContent=fallback;setStatus('安全陪伴中');}
+  }
+  form.addEventListener('submit',event=>{event.preventDefault();event.stopImmediatePropagation();if(busy)return;const message=input.value.trim();if(!message)return;busy=true;input.value='';send(message).finally(()=>{busy=false;input.focus()})},true);
+  initGreeting();
+})();
+ </script><script src="sidebar.js"></script><script src="hide-back.js"></script>

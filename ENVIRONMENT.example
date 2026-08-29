@@ -1,0 +1,11 @@
+# Python 模型网关（按需填写）
+MODEL_API_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+MODEL_API_KEY=
+MODEL_NAME=qwen-turbo
+MODEL_TIMEOUT_SECONDS=120
+
+# Java 调用 Python 的地址
+MOODAPP_AGENT_BASE_URL=http://127.0.0.1:8081
+
+# Java 网关鉴权（如项目启用）
+MOODAPP_AGENT_GATEWAY_TOKEN=

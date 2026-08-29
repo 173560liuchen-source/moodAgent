@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><script src="auth-guard.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>心晴 AI · RAG 心理知识库</title>
+  <style>html{background:#f6f2ea}</style>
+  <script src="page-transition.js" defer></script>
+  <style>
+    :root{--canvas:#f6f2ea;--surface:rgba(255,255,255,.72);--strong:#fffdf9;--ink:#25302a;--deep:#2e4335;--muted:#657269;--sage:#5c7a63;--sage-dark:#43604b;--mint:#e5eee6;--line:#e4decf;--warn:#a97932;--danger:#a8554d;--shadow:0 20px 50px -28px rgba(46,67,53,.32);--radius:20px;--small:13px}
+    *{box-sizing:border-box}html,body{height:100%;margin:0}body{overflow:hidden;background:var(--canvas);color:var(--ink);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}.app{position:relative;isolation:isolate;height:100%;overflow:hidden;background:radial-gradient(ellipse at 88% 14%,rgba(220,235,218,.74),transparent 31%),radial-gradient(ellipse at 8% 88%,rgba(246,230,218,.7),transparent 34%)}.app:before,.app:after{position:fixed;z-index:-1;border-radius:50%;filter:blur(10px);pointer-events:none;content:""}.app:before{width:430px;height:430px;right:-120px;top:-140px;background:rgba(211,230,211,.52)}.app:after{width:350px;height:350px;left:-170px;bottom:-190px;background:rgba(239,210,190,.47)}
+    .top{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid rgba(228,222,207,.86);background:rgba(246,242,234,.55);backdrop-filter:blur(14px)}.title-wrap{display:flex;align-items:baseline;gap:12px}.page-title{font:500 1.35rem Georgia,"Noto Serif SC",serif}.page-sub{color:var(--muted);font-size:.78rem}.home-link{color:var(--sage-dark);text-decoration:none}.home-link:hover{text-decoration:underline}
+    .rag-content{display:flex;height:calc(100dvh - 72px);min-height:0;flex-direction:column;padding:16px 26px 22px;overflow:hidden}.status-strip{display:grid;grid-template-columns:1.25fr repeat(3,1fr);gap:10px;margin-bottom:12px}.status-card{min-height:82px;padding:13px 15px;border:1px solid rgba(255,255,255,.82);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(15px)}.status-card span{display:block;color:var(--muted);font-size:.67rem}.status-card strong{display:block;margin-top:5px;color:var(--deep);font-size:1.05rem;font-variant-numeric:tabular-nums}.status-card small{display:block;margin-top:2px;color:#7e8a82;font-size:.62rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status-main{position:relative;padding-left:35px}.status-main:before{position:absolute;left:16px;top:17px;width:9px;height:9px;border-radius:50%;background:#aab3ac;box-shadow:0 0 0 5px rgba(92,122,99,.1);content:""}.status-main.ready:before{background:#78a184}.status-main.error:before{background:var(--danger)}
+    .workspace{display:grid;grid-template-columns:220px minmax(430px,1fr) 280px;gap:12px;flex:1;min-height:0}.pane{display:flex;min-width:0;min-height:0;flex-direction:column;border:1px solid rgba(255,255,255,.82);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(16px);overflow:hidden}.pane-head{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:58px;padding:13px 15px;border-bottom:1px solid rgba(228,222,207,.72)}.pane-head h2{margin:0;font-size:.94rem}.count{color:var(--muted);font-size:.66rem}
+    .category-list{display:grid;gap:7px;padding:12px;overflow-y:auto}.category-button{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:9px;width:100%;min-height:48px;padding:7px 9px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);font:inherit;text-align:left;cursor:pointer}.category-button:hover,.category-button.active{border-color:rgba(92,122,99,.18);background:var(--mint);color:var(--deep)}.category-button:focus-visible,.search-button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:0;box-shadow:0 0 0 3px rgba(92,122,99,.18)}.category-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:rgba(255,255,255,.75);color:var(--sage-dark);font-size:.7rem}.category-name{min-width:0;font-size:.72rem;font-weight:650}.category-name small{display:block;color:#829087;font-size:.59rem;font-weight:500}.category-count{color:var(--sage-dark);font-size:.65rem;font-weight:750}.category-note{margin:auto 12px 12px;padding:11px;border-radius:12px;background:rgba(229,238,230,.58);color:var(--muted);font-size:.65rem}
+    .search-form{padding:14px;border-bottom:1px solid rgba(228,222,207,.72)}.query-label,.field-label{display:block;margin:0 0 6px;color:var(--deep);font-size:.68rem;font-weight:700}.query-box{width:100%;min-height:82px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.76);color:var(--ink);font:inherit;line-height:1.6;resize:none}.query-box::placeholder{color:#7d8981}.control-row{display:grid;grid-template-columns:108px 1fr auto;align-items:end;gap:10px;margin-top:10px}.number-input{width:100%;height:42px;padding:0 10px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.78);color:var(--deep);font:inherit}.range-wrap{display:grid;grid-template-columns:1fr 42px;align-items:center;gap:8px;height:42px;padding:0 10px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.78)}.range-wrap input{width:100%;accent-color:var(--sage)}.range-value{color:var(--deep);font-size:.68rem;font-variant-numeric:tabular-nums}.search-button{height:42px;padding:0 18px;border:0;border-radius:11px;background:var(--sage);color:#f4f8f3;font:700 .74rem/1 inherit;cursor:pointer;box-shadow:0 10px 22px -15px rgba(46,67,53,.65)}.search-button:disabled{opacity:.55;cursor:wait}
+    .result-area{display:flex;min-height:0;flex:1;flex-direction:column}.result-summary{display:none;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}.result-summary.show{display:grid}.summary-cell{min-width:0;padding:9px 10px;border-radius:11px;background:rgba(229,238,230,.52)}.summary-cell span{display:block;color:var(--muted);font-size:.6rem}.summary-cell strong{display:block;margin-top:3px;color:var(--deep);font-size:.69rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.citation-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 7px}.citation-head h3{margin:0;font-size:.78rem}.citations{display:grid;align-content:start;gap:8px;min-height:0;padding:0 14px 14px;overflow-y:auto;overscroll-behavior:contain}.citation{padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.68)}.citation-top{display:flex;align-items:center;gap:7px}.citation-source{min-width:0;color:var(--deep);font-size:.72rem;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.badge{flex:0 0 auto;padding:3px 7px;border-radius:99px;background:var(--mint);color:var(--sage-dark);font-size:.58rem;font-weight:700}.score{margin-left:auto;color:var(--sage-dark);font-size:.62rem;font-weight:750;font-variant-numeric:tabular-nums}.citation p{margin:9px 0 0;color:#58655d;font-size:.69rem;line-height:1.65;white-space:pre-wrap}.citation details{margin-top:8px}.citation summary{color:#728078;font-size:.61rem;cursor:pointer}.tech{margin-top:7px;padding:8px;border-radius:9px;background:rgba(229,238,230,.42);color:#718078;font-size:.58rem;line-height:1.65;word-break:break-all}.empty{display:grid;place-items:center;min-height:180px;padding:30px;color:var(--muted);font-size:.72rem;text-align:center}.empty b{display:block;margin-bottom:5px;color:var(--deep);font-size:.82rem}
+    .pipeline{padding:14px;overflow-y:auto}.pipeline-list{display:grid;gap:0}.pipeline-step{position:relative;display:grid;grid-template-columns:28px 1fr;gap:10px;min-height:64px}.pipeline-step:not(:last-child):after{position:absolute;left:13px;top:30px;width:1px;height:calc(100% - 10px);background:rgba(92,122,99,.2);content:""}.step-index{display:grid;place-items:center;z-index:1;width:28px;height:28px;border:1px solid rgba(92,122,99,.2);border-radius:9px;background:#f8f7f1;color:var(--sage-dark);font-size:.62rem;font-weight:750}.pipeline-step.done .step-index{border-color:transparent;background:var(--sage);color:#f4f8f3}.pipeline-step.active .step-index{animation:pulse 1s ease-in-out infinite;background:var(--mint)}.step-copy b{display:block;color:var(--deep);font-size:.7rem}.step-copy span{display:block;margin-top:2px;color:var(--muted);font-size:.61rem}.policy{margin-top:8px;padding:12px;border-radius:13px;background:rgba(229,238,230,.58)}.policy h3{margin:0 0 7px;font-size:.72rem}.policy p{margin:0;color:var(--muted);font-size:.64rem}.error-box{display:none;margin:12px;padding:11px;border-radius:12px;background:rgba(168,85,77,.1);color:#8e4943;font-size:.66rem}.error-box.show{display:block}
+    .category-list,.citations,.pipeline{scrollbar-width:none;-ms-overflow-style:none}.category-list::-webkit-scrollbar,.citations::-webkit-scrollbar,.pipeline::-webkit-scrollbar{display:none}.app.sidebar-open>.rag-content{margin-left:var(--rail-open);width:calc(100% - var(--rail-open))}.app:not(.sidebar-open)>.rag-content{margin-left:var(--rail);width:calc(100% - var(--rail))}.app>.rag-content{transition:margin-left 260ms var(--nav-ease),width 260ms var(--nav-ease)}
+    @keyframes pulse{50%{opacity:.45}}@media(max-width:1260px){body{overflow:auto}.app{height:auto;min-height:100%}.rag-content{height:auto;min-height:calc(100dvh - 72px);overflow:visible}.workspace{grid-template-columns:210px minmax(420px,1fr)}.pipeline-pane{grid-column:1/-1;min-height:260px}.pipeline-list{grid-template-columns:repeat(5,1fr);gap:8px}.pipeline-step{grid-template-columns:1fr;min-height:0;padding:10px;border-radius:12px;background:rgba(229,238,230,.42)}.pipeline-step:not(:last-child):after{display:none}}@media(max-width:920px){.status-strip{grid-template-columns:1fr 1fr}.workspace{grid-template-columns:1fr}.category-pane{max-height:320px}.pipeline-pane{grid-column:auto}.rag-content{padding:14px}.top{padding:0 18px}.page-sub{display:none}}@media(max-width:860px){.app.sidebar-open>.rag-content{margin-left:min(86vw,var(--rail-open));width:calc(100% - min(86vw,var(--rail-open)))}}@media(max-width:620px){.mood-sidebar.is-open{width:var(--rail)}.app.sidebar-open>.rag-content,.app:not(.sidebar-open)>.rag-content{margin-left:var(--rail);width:calc(100% - var(--rail))}.status-strip,.control-row,.result-summary.show{grid-template-columns:1fr}.pipeline-list{grid-template-columns:1fr}.pipeline-step{grid-template-columns:28px 1fr}.page-title{font-size:1.05rem}.home-link{display:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}@media(prefers-reduced-transparency:reduce){.pane,.status-card,.top{backdrop-filter:none;background:#faf8f2}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div class="title-wrap"><span class="page-title">RAG 心理知识库</span><span class="page-sub">真实知识检索 · 引用可追溯</span></div>
+    <a class="home-link" href="index.html">返回首页</a>
+  </header>
+  <section class="rag-content content" id="main">
+    <div class="status-strip">
+      <article class="status-card status-main" id="status-main"><span>知识库运行状态</span><strong id="status-value">正在连接</strong><small id="status-detail">读取向量库与证据策略</small></article>
+      <article class="status-card"><span>已入库文档</span><strong id="document-count">—</strong><small>可参与检索的来源文档</small></article>
+      <article class="status-card"><span>知识片段</span><strong id="chunk-count">—</strong><small id="collection-name">等待连接</small></article>
+      <article class="status-card"><span>向量模型</span><strong id="model-name">—</strong><small>用于语义匹配与重排</small></article>
+    </div>
+    <div class="workspace">
+      <aside class="pane category-pane">
+        <div class="pane-head"><h2>知识覆盖</h2><span class="count" id="category-total">0 个分类</span></div>
+        <nav class="category-list" id="category-list" aria-label="检索结果分类筛选"></nav>
+        <p class="category-note">分类用于筛选当前命中结果。实际检索分类由智能体根据问题自动选择。</p>
+      </aside>
+      <section class="pane search-pane">
+        <form class="search-form" id="rag-form">
+          <label class="query-label" for="rag-query">检索问题</label>
+          <textarea class="query-box" id="rag-query" maxlength="12000" placeholder="例如：最近压力很大、睡不好，有哪些可执行的调节方法？" required></textarea>
+          <div class="control-row">
+            <label><span class="field-label">返回条数</span><input class="number-input" id="top-k" type="number" min="1" max="20" value="5"></label>
+            <label><span class="field-label">最低相关度</span><span class="range-wrap"><input id="min-score" type="range" min="0" max="1" step="0.05" value="0.2"><output class="range-value" id="score-output">0.20</output></span></label>
+            <button class="search-button" id="search-button" type="submit">检索知识</button>
+          </div>
+        </form>
+        <div class="result-area">
+          <div class="result-summary" id="result-summary">
+            <div class="summary-cell"><span>重写后的检索语句</span><strong id="rewritten-query">—</strong></div>
+            <div class="summary-cell"><span>智能体选择分类</span><strong id="selected-categories">—</strong></div>
+            <div class="summary-cell"><span>检索策略</span><strong id="retrieval-strategy">—</strong></div>
+            <div class="summary-cell"><span>结果可信度</span><strong id="result-confidence">—</strong></div>
+          </div>
+          <div class="citation-head"><h3>命中依据</h3><span class="count" id="citation-count">尚未检索</span></div>
+          <div class="citations" id="citation-list"><div class="empty"><div><b>输入一个真实问题开始检索</b>这里会展示后端返回的知识片段、来源和相关度。</div></div></div>
+        </div>
+      </section>
+      <aside class="pane pipeline-pane">
+        <div class="pane-head"><h2>检索链路</h2><span class="count" id="pipeline-state">等待问题</span></div>
+        <div class="pipeline">
+          <div class="pipeline-list" id="pipeline-list">
+            <div class="pipeline-step"><span class="step-index">1</span><div class="step-copy"><b>问题理解</b><span>结合上下文重写检索语句</span></div></div>
+            <div class="pipeline-step"><span class="step-index">2</span><div class="step-copy"><b>分类选择</b><span>确定心理知识检索范围</span></div></div>
+            <div class="pipeline-step"><span class="step-index">3</span><div class="step-copy"><b>向量检索</b><span>在 pgvector 中召回片段</span></div></div>
+            <div class="pipeline-step"><span class="step-index">4</span><div class="step-copy"><b>语义重排</b><span>使用 BGE 模型校准相关度</span></div></div>
+            <div class="pipeline-step"><span class="step-index">5</span><div class="step-copy"><b>证据输出</b><span>仅返回真实命中的引用依据</span></div></div>
+          </div>
+          <section class="policy"><h3>证据策略</h3><p id="evidence-policy">知识不足时明确说明无证据，不生成虚构来源。</p></section>
+        </div>
+        <div class="error-box" id="error-box" role="alert"></div>
+      </aside>
+    </div>
+  </section>
+</main>
+<script src="sidebar.js"></script>
+<script src="rag-knowledge.js"></script>
+</body>
+</html>

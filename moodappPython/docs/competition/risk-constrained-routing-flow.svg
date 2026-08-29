@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">风险约束动态路由流程</title>
+  <desc id="desc">系统将危机、情绪、趋势、知识需求和历史反馈归一化，先判断危机安全硬约束；高危进入危机响应，非高危计算四类路径得分，再按优先级选择服务路径，最后输出路由解释并写入审计记录。</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#16324F" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#3973A5"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#C14B50"/>
+    </marker>
+    <style>
+      .title { font: 700 38px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #17324D; }
+      .subtitle { font: 400 19px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #66798C; }
+      .box-text { font: 600 24px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #17324D; text-anchor: middle; dominant-baseline: middle; }
+      .small-text { font: 400 18px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #496177; text-anchor: middle; }
+      .decision-text { font: 700 23px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #17324D; text-anchor: middle; dominant-baseline: middle; }
+      .branch-label { font: 700 21px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+      .path-title { font: 700 20px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #17324D; text-anchor: middle; dominant-baseline: middle; }
+      .audit-title { font: 700 26px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFFFFF; text-anchor: middle; dominant-baseline: middle; }
+      .audit-sub { font: 400 17px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #DCEAF5; text-anchor: middle; }
+      .line-blue { fill: none; stroke: #3973A5; stroke-width: 4; marker-end: url(#arrowBlue); }
+      .line-red { fill: none; stroke: #C14B50; stroke-width: 4; marker-end: url(#arrowRed); }
+      .merge-blue { fill: none; stroke: #3973A5; stroke-width: 4; }
+      .merge-red { fill: none; stroke: #C14B50; stroke-width: 4; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1040" fill="#FFFFFF"/>
+  <rect x="54" y="44" width="12" height="74" rx="6" fill="#3973A5"/>
+  <text x="88" y="78" class="title">风险约束动态路由流程</text>
+  <text x="89" y="109" class="subtitle">安全硬约束优先，普通请求再依据多源特征选择服务路径</text>
+
+  <rect x="400" y="150" width="800" height="104" rx="18" fill="#EDF5FA" stroke="#8CB6D3" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="800" y="191" class="box-text">危机、情绪、趋势、知识需求及历史反馈</text>
+  <text x="800" y="226" class="small-text">多源状态信号输入</text>
+
+  <path d="M800 254 L800 302" class="line-blue"/>
+
+  <rect x="535" y="310" width="530" height="88" rx="16" fill="#E8F0F7" stroke="#6C9AC1" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="800" y="355" class="box-text">路由特征归一化</text>
+
+  <path d="M800 398 L800 445" class="line-blue"/>
+
+  <polygon points="800,445 1040,530 800,615 560,530" fill="#FFF8E8" stroke="#C99B3B" stroke-width="3" filter="url(#shadow)"/>
+  <text x="800" y="519" class="decision-text">是否触发</text>
+  <text x="800" y="551" class="decision-text">危机安全硬约束？</text>
+
+  <path d="M560 530 L315 530 L315 656" class="line-red"/>
+  <text x="432" y="505" class="branch-label" fill="#B33F45">是</text>
+  <text x="315" y="570" class="small-text" fill="#B33F45">安全升级 / 高危 / 危机响应动作</text>
+
+  <rect x="125" y="665" width="380" height="98" rx="18" fill="#FCEDEF" stroke="#C14B50" stroke-width="3" filter="url(#shadow)"/>
+  <text x="315" y="706" class="box-text" fill="#9C3036">危机响应路径</text>
+  <text x="315" y="739" class="small-text" fill="#9C3036">跳过普通对话，标记人工复核</text>
+
+  <path d="M1040 530 L1285 530 L1285 608" class="line-blue"/>
+  <text x="1165" y="505" class="branch-label" fill="#3973A5">否</text>
+
+  <rect x="1095" y="618" width="380" height="82" rx="17" fill="#EDF5FA" stroke="#6C9AC1" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="1285" y="660" class="box-text">计算四类路径得分</text>
+
+  <path d="M1285 700 L1285 742" class="line-blue"/>
+
+  <rect x="1095" y="750" width="380" height="82" rx="17" fill="#E8F0F7" stroke="#6C9AC1" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="1285" y="792" class="box-text">按优先级检查路由条件</text>
+
+  <path d="M1285 832 L1285 862 L795 862" class="merge-blue"/>
+  <path d="M795 862 L795 884" class="line-blue"/>
+
+  <g filter="url(#shadow)">
+    <rect x="560" y="890" width="220" height="72" rx="15" fill="#EAF7F3" stroke="#57A78D" stroke-width="2.5"/>
+    <rect x="795" y="890" width="220" height="72" rx="15" fill="#EEF3FA" stroke="#6C91BF" stroke-width="2.5"/>
+    <rect x="1030" y="890" width="220" height="72" rx="15" fill="#F4F0FA" stroke="#8B72B6" stroke-width="2.5"/>
+    <rect x="1265" y="890" width="220" height="72" rx="15" fill="#F3F6F8" stroke="#8295A7" stroke-width="2.5"/>
+  </g>
+  <text x="670" y="926" class="path-title">跟进支持</text>
+  <text x="905" y="926" class="path-title">知识支持</text>
+  <text x="1140" y="926" class="path-title">综合评估</text>
+  <text x="1375" y="926" class="path-title">探索式陪伴</text>
+
+  <path d="M315 763 L315 995 L690 995" class="merge-red"/>
+  <path d="M670 962 L670 995" class="merge-blue"/>
+  <path d="M905 962 L905 995" class="merge-blue"/>
+  <path d="M1140 962 L1140 995" class="merge-blue"/>
+  <path d="M1375 962 L1375 995" class="merge-blue"/>
+  <path d="M690 995 L800 995" class="merge-red"/>
+  <path d="M670 995 L1375 995" class="merge-blue"/>
+
+  <rect x="550" y="978" width="500" height="56" rx="16" fill="#244F73" filter="url(#shadow)"/>
+  <text x="800" y="1000" class="audit-title">输出路由解释并写入审计记录</text>
+  <text x="800" y="1025" class="audit-sub">路径 · 得分 · 理由 · 证据状态 · 策略版本</text>
+</svg>

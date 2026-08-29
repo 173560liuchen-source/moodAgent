@@ -1,0 +1,234 @@
+{
+  "generated_at": "2026-08-27T10:13:16.487255+00:00",
+  "knowledge_version": "cc2afbc6d9c00a7f",
+  "source": "D:\\moodA\\moodappPython\\knowledge",
+  "rebuild": true,
+  "files": {
+    "scanned": 38,
+    "parsed": 19,
+    "failed": 0,
+    "skipped": 19
+  },
+  "documents": [
+    {
+      "document_id": "student_psychology-sas-2efa201b9a52",
+      "file_name": "SAS焦虑自评量表介绍.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 1289,
+      "chunk_count": 15,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 9,
+      "content_hash": "0fb70daee5b12e3f0364f4bc08c05d1fccd90831e101e0444a26121668947f6c"
+    },
+    {
+      "document_id": "student_psychology-sds-3c8be48b811c",
+      "file_name": "SDS抑郁自评量表介绍.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 1399,
+      "chunk_count": 15,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 9,
+      "content_hash": "5cde7f31c094272d2d46059942d865f8ead8ee80e62c3ae5c3c0e6cd481ab374"
+    },
+    {
+      "document_id": "student_psychology-document-9772a4854d5b",
+      "file_name": "人格特征分析资料.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 990,
+      "chunk_count": 12,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 6,
+      "content_hash": "27d44ee8106c85ae684f3561793d74cfca528bcc1ca937e1c1eda15ae009273c"
+    },
+    {
+      "document_id": "student_psychology-document-83053ad55550",
+      "file_name": "大学生常见情绪问题处理指南.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 1062,
+      "chunk_count": 14,
+      "parent_chunk_count": 7,
+      "child_chunk_count": 7,
+      "content_hash": "9e11ad0103ae525635dc0aaf8cecefe13b9bc3457168772e0d8db8eca34a0b5d"
+    },
+    {
+      "document_id": "student_psychology-document-5bb92b4ef398",
+      "file_name": "大学生心理健康测评指南.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 1384,
+      "chunk_count": 16,
+      "parent_chunk_count": 7,
+      "child_chunk_count": 9,
+      "content_hash": "950c374cbed2870eddc35a17398633909790445a7df20d058e3edf3e33f62ddc"
+    },
+    {
+      "document_id": "student_psychology-document-f12ff1a2e853",
+      "file_name": "心理健康动态监测方法.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 883,
+      "chunk_count": 12,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 6,
+      "content_hash": "9128ec2734838943f3c4328d6aebda4e4631c1bf09a199e6e180977a02f92d18"
+    },
+    {
+      "document_id": "student_psychology-document-b1b988273640",
+      "file_name": "心理状态变化分析方法.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 756,
+      "chunk_count": 9,
+      "parent_chunk_count": 4,
+      "child_chunk_count": 5,
+      "content_hash": "50922f60c366f89a4ccda2528b7afb7e08990cad2c4bceda63bf285d93b2d866"
+    },
+    {
+      "document_id": "student_psychology-document-a7b40be3f56f",
+      "file_name": "心理行为模式分析.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 868,
+      "chunk_count": 11,
+      "parent_chunk_count": 5,
+      "child_chunk_count": 6,
+      "content_hash": "9b2ac429c2b43e521cd22c2ac9244078a27e0206aae3077efcc3da5c674d672b"
+    },
+    {
+      "document_id": "student_psychology-document-980d4a44b2bb",
+      "file_name": "情绪表达特征分析.pdf",
+      "category": "student_psychology",
+      "extracted_characters": 789,
+      "chunk_count": 10,
+      "parent_chunk_count": 5,
+      "child_chunk_count": 5,
+      "content_hash": "3c519bb73cd06fcb0c34eae4aab46265fcc620e09d1d26a36c802f27b4ed69e9"
+    },
+    {
+      "document_id": "stress_management-document-36758ef5e630",
+      "file_name": "压力调节技巧.pdf",
+      "category": "stress_management",
+      "extracted_characters": 1144,
+      "chunk_count": 14,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 8,
+      "content_hash": "ee4ae628169e4723927d926fc2eae79dd9819ec98db7644dc9ded406f8554c81"
+    },
+    {
+      "document_id": "stress_management-document-85b5ec74551c",
+      "file_name": "情绪管理方法.pdf",
+      "category": "stress_management",
+      "extracted_characters": 1096,
+      "chunk_count": 11,
+      "parent_chunk_count": 4,
+      "child_chunk_count": 7,
+      "content_hash": "b9aef35aff564ba48e639d319a31f3af5d98b03d53b1fcfa4d0d7fa7104d71cf"
+    },
+    {
+      "document_id": "stress_management-document-32483945dc25",
+      "file_name": "长期压力变化评估指南.pdf",
+      "category": "stress_management",
+      "extracted_characters": 754,
+      "chunk_count": 11,
+      "parent_chunk_count": 5,
+      "child_chunk_count": 6,
+      "content_hash": "58e90996002ccf3c573995941144123c712d99742c026729c2c6d125503b1601"
+    },
+    {
+      "document_id": "sleep_management-document-a5f3656190d4",
+      "file_name": "学生睡眠管理与失眠求助指南.pdf",
+      "category": "sleep_management",
+      "extracted_characters": 1619,
+      "chunk_count": 15,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 9,
+      "content_hash": "7b06e938e65aa3569e14448ee3c72ea788d9128242f177ee0e0f352c0cd84482"
+    },
+    {
+      "document_id": "crisis_guidelines-document-5767eb871e46",
+      "file_name": "心理危机干预流程.pdf",
+      "category": "crisis_guidelines",
+      "extracted_characters": 851,
+      "chunk_count": 13,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 7,
+      "content_hash": "0267d9536fc0bb2d51b89cbe851525f6368af4b32acf071329a89a97d53c1852"
+    },
+    {
+      "document_id": "crisis_guidelines-document-2b7affd17b76",
+      "file_name": "心理危机识别指南.pdf",
+      "category": "crisis_guidelines",
+      "extracted_characters": 1079,
+      "chunk_count": 11,
+      "parent_chunk_count": 5,
+      "child_chunk_count": 6,
+      "content_hash": "1464af221006ac989ad2d092d23542101fe6a8dfe88e202850a05b405f3e5f7a"
+    },
+    {
+      "document_id": "crisis_guidelines-document-6e3833104ada",
+      "file_name": "心理援助热线与紧急求助指南.pdf",
+      "category": "crisis_guidelines",
+      "extracted_characters": 2252,
+      "chunk_count": 21,
+      "parent_chunk_count": 7,
+      "child_chunk_count": 14,
+      "content_hash": "a11e59da7d7bfba15bee05bbf4f5659ef42ab8859b04ea827047bc18ce81c700"
+    },
+    {
+      "document_id": "crisis_guidelines-document-87ae39dc0d08",
+      "file_name": "自伤风险识别参考.pdf",
+      "category": "crisis_guidelines",
+      "extracted_characters": 918,
+      "chunk_count": 12,
+      "parent_chunk_count": 5,
+      "child_chunk_count": 7,
+      "content_hash": "1d424256946d037439616a9308fcbde03c9e5bed6a4902e0571cda3dce30df59"
+    },
+    {
+      "document_id": "crisis_guidelines-document-d1dfb14a462a",
+      "file_name": "高校心理危机预警工作指南.pdf",
+      "category": "crisis_guidelines",
+      "extracted_characters": 1173,
+      "chunk_count": 13,
+      "parent_chunk_count": 6,
+      "child_chunk_count": 7,
+      "content_hash": "bf05b59355318c659fa18ae1b6b640eddfef0bedfcb051dc96d66122d5b96265"
+    },
+    {
+      "document_id": "school_resources-document-2994827c1021",
+      "file_name": "高校心理支持与校内求助指南.pdf",
+      "category": "school_resources",
+      "extracted_characters": 1739,
+      "chunk_count": 17,
+      "parent_chunk_count": 7,
+      "child_chunk_count": 10,
+      "content_hash": "9837e28b474f631b58dd4a14bbc191447a29901774da0ec7ded414c2961d99db"
+    }
+  ],
+  "chunking": {
+    "max_chars": 220,
+    "min_chars": 80,
+    "overlap_chars": 30,
+    "parent_max_chars": 1200,
+    "parent_min_chars": 400,
+    "chunk_count": 252,
+    "failed_count": 0
+  },
+  "embedding": {
+    "model": "BAAI/bge-m3",
+    "dimensions": 1024,
+    "vector_count": 252,
+    "failed_count": 0
+  },
+  "storage": {
+    "collection_name": "public.rag_chunks",
+    "persist_directory": "127.0.0.1:5432/moodAgent",
+    "chunk_count": 252,
+    "upserted_count": 252,
+    "inserted_count": 0,
+    "updated_count": 65,
+    "deleted_count": 36,
+    "unchanged_count": 187,
+    "failed_count": 0,
+    "embedding_model": "BAAI/bge-m3",
+    "dimensions": 1024,
+    "errors": []
+  },
+  "errors": []
+}

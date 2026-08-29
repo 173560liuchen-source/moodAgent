@@ -1,0 +1,117 @@
+{
+  "generated_at": "2026-08-04T10:00:32.875861Z",
+  "total_requests": 6,
+  "successful_requests": 3,
+  "failed_requests": 3,
+  "concurrency": 2,
+  "duration_ms": 34677,
+  "throughput_per_second": 0.173,
+  "average_latency_ms": 10912.83,
+  "p50_latency_ms": 10648.0,
+  "p95_latency_ms": 12013.0,
+  "max_latency_ms": 12015,
+  "timeout_rate": 0.5,
+  "node_p50_latency_ms": {
+    "audit": 0.0,
+    "dialogue": 6304.0,
+    "evaluator": 0.0,
+    "initial_analysis": 4022.0,
+    "intervention_plan": 0.0,
+    "profile_update": 0.0,
+    "risk_assessment": 0.0,
+    "safety_gate": 0.0
+  },
+  "node_p95_latency_ms": {
+    "audit": 0.0,
+    "dialogue": 6304.0,
+    "evaluator": 0.0,
+    "initial_analysis": 4022.0,
+    "intervention_plan": 0.0,
+    "profile_update": 0.0,
+    "risk_assessment": 0.0,
+    "safety_gate": 0.0
+  },
+  "samples": [
+    {
+      "index": 0,
+      "latency_ms": 12013,
+      "succeeded": false,
+      "timed_out": true,
+      "trace_length": 0,
+      "node_latency_ms": {},
+      "error": "TimeoutError"
+    },
+    {
+      "index": 1,
+      "latency_ms": 12006,
+      "succeeded": false,
+      "timed_out": true,
+      "trace_length": 0,
+      "node_latency_ms": {},
+      "error": "TimeoutError"
+    },
+    {
+      "index": 2,
+      "latency_ms": 8388,
+      "succeeded": true,
+      "timed_out": false,
+      "trace_length": 11,
+      "node_latency_ms": {
+        "safety_gate": 0,
+        "initial_analysis": 4008,
+        "risk_assessment": 0,
+        "profile_update": 0,
+        "intervention_plan": 0,
+        "dialogue": 4374,
+        "evaluator": 1,
+        "audit": 0
+      },
+      "error": null
+    },
+    {
+      "index": 3,
+      "latency_ms": 10648,
+      "succeeded": true,
+      "timed_out": false,
+      "trace_length": 11,
+      "node_latency_ms": {
+        "safety_gate": 0,
+        "initial_analysis": 4340,
+        "risk_assessment": 0,
+        "profile_update": 0,
+        "intervention_plan": 0,
+        "dialogue": 6304,
+        "evaluator": 0,
+        "audit": 0
+      },
+      "error": null
+    },
+    {
+      "index": 4,
+      "latency_ms": 10407,
+      "succeeded": true,
+      "timed_out": false,
+      "trace_length": 11,
+      "node_latency_ms": {
+        "safety_gate": 0,
+        "initial_analysis": 4022,
+        "risk_assessment": 0,
+        "profile_update": 0,
+        "intervention_plan": 0,
+        "dialogue": 6382,
+        "evaluator": 0,
+        "audit": 1
+      },
+      "error": null
+    },
+    {
+      "index": 5,
+      "latency_ms": 12015,
+      "succeeded": false,
+      "timed_out": true,
+      "trace_length": 0,
+      "node_latency_ms": {},
+      "error": "TimeoutError"
+    }
+  ]
+}

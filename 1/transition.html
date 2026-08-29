@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <script src="auth-guard.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>正在进入心晴 AI</title>
+  <style>
+    :root{--paper:#F6F2EA;--sage:#5C7A63;--deep:#2E4335;--muted:#5E6B62}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}body{overflow:hidden;background:var(--paper);color:var(--deep);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    .transition-page{position:relative;display:grid;place-items:center;width:100%;height:100%;isolation:isolate;background:radial-gradient(circle at 76% 28%,rgba(221,235,224,.7),transparent 34%),radial-gradient(circle at 16% 84%,rgba(246,232,221,.72),transparent 32%)}
+    .transition-page:before{position:absolute;inset:-30%;z-index:-1;content:"";background:radial-gradient(ellipse at center,rgba(255,255,255,.4),transparent 53%);animation:breathe 5s ease-in-out infinite alternate}
+    .veil{position:absolute;z-index:2;width:10px;height:10px;border-radius:50%;background:var(--sage);transform:scale(0);animation:expand 720ms cubic-bezier(.7,0,.2,1) 100ms forwards;pointer-events:none}
+    .message{display:flex;flex-direction:column;align-items:center;gap:16px;opacity:0;transform:translateY(24px);animation:rise 620ms cubic-bezier(.22,.7,.31,1) 280ms forwards;text-align:center}
+    .mark{display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:var(--sage);color:#EAF0E9;box-shadow:0 16px 28px -14px rgba(46,67,53,.55)}
+    h1{margin:0;font:400 clamp(1.7rem,4vw,2.4rem)/1.1 Georgia,serif;letter-spacing:-.02em}p{margin:0;color:var(--muted);font-size:.92rem}
+    .loader{display:flex;gap:6px;margin-top:8px}.loader i{width:5px;height:5px;border-radius:50%;background:var(--sage);animation:pulse 1s ease-in-out infinite}.loader i:nth-child(2){animation-delay:140ms}.loader i:nth-child(3){animation-delay:280ms}
+    @keyframes expand{0%{transform:scale(0);opacity:.95}100%{transform:scale(220);opacity:0}}
+    @keyframes rise{to{opacity:1;transform:none}}@keyframes pulse{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(-4px);opacity:1}}@keyframes breathe{to{transform:scale(1.05)}}
+    @media(prefers-reduced-motion:reduce){.veil{animation:none;opacity:0}.message{animation:none;opacity:1;transform:none}.transition-page:before,.loader i{animation:none}}
+  </style>
+</head>
+<body>
+  <main class="transition-page" aria-live="polite">
+    <span class="veil" aria-hidden="true"></span>
+    <div class="message"><div class="mark" aria-hidden="true"><svg width="26" height="30" viewBox="0 0 20 24"><path d="M10 2c2.7 4.3 5.3 7.1 5.3 11.4A5.3 5.3 0 1 1 4.7 13.4C4.7 9.2 7.4 6.4 10 2Z" fill="currentColor"/><path d="M10 10v10M6.8 16.5c2 1.2 4.3 1.2 6.4 0" stroke="#5C7A63" stroke-width="1.2" fill="none"/></svg></div><h1>正在进入心晴 AI</h1><p>给自己一点时间，我们马上开始。</p><span class="loader" aria-label="正在加载"><i></i><i></i><i></i></span></div>
+  </main>
+  <script>window.setTimeout(()=>{sessionStorage.setItem('mood-entry','home-to-chat');window.location.href='app.html'},900);</script>
+</body>
+</html>

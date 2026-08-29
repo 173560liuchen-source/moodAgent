@@ -1,0 +1,13 @@
+{
+  "title": "高校心理支持与校内求助指南",
+  "publisher": "心晴 AI 项目组（依据教育部与国家卫生健康委员会公开资料整理）",
+  "source_url": "https://www.moe.gov.cn/srcsite/A12/moe_1407/s3020/201807/t20180713_342992.html",
+  "version": "1.0",
+  "reviewed_at": "2026-08-14T00:00:00+08:00",
+  "parent_category": "校园资源",
+  "child_categories": ["心理中心", "辅导员", "校医院", "热线"],
+  "applicable_population": ["大学生", "校园支持人员"],
+  "evidence_level": "school_resource",
+  "source_type": "school_resource",
+  "medical_boundary": "仅说明求助路径；具体校内服务时间和联系方式需以学校最新公告为准。"
+}

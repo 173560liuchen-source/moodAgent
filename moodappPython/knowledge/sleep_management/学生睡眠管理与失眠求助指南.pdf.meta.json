@@ -1,0 +1,13 @@
+{
+  "title": "学生睡眠管理与失眠求助指南",
+  "publisher": "心晴 AI 项目组（依据世界卫生组织等公开资料整理）",
+  "source_url": "https://www.who.int/en/news-room/questions-and-answers/item/stress",
+  "version": "1.0",
+  "reviewed_at": "2026-08-14T00:00:00+08:00",
+  "parent_category": "睡眠管理",
+  "child_categories": ["入睡困难", "早醒", "夜醒", "作息紊乱"],
+  "applicable_population": ["大学生", "校园支持人员"],
+  "evidence_level": "public_guidance",
+  "source_type": "public_reference",
+  "medical_boundary": "提供睡眠卫生与求助信息，不提供诊断、处方或自行用药建议。"
+}

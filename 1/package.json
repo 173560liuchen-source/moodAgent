@@ -1,0 +1,11 @@
+{
+  "name": "moodapp-frontend-smoke-tests",
+  "private": true,
+  "scripts": {
+    "test:smoke": "node --test tests/frontend-smoke.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}

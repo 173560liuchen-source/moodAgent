@@ -1,0 +1,1 @@
+evaluation_date,evaluation_version,variant,test_set,sample_size,crisis_recall,high_risk_miss_rate,false_positive_rate,human_review_consistency,emotion_consistency,rag_citation_precision,json_valid_rate,fallback_success_rate,p50_latency_ms,p95_latency_ms,report_path,notes

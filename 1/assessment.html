@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><script src="auth-guard.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>心晴 AI · 心理测评</title>
+  <style>html{background:#f6f2ea}</style>
+  <script src="page-transition.js" defer></script>
+  <style>
+    :root{
+      --page:#f6f2ea;--surface:rgba(255,253,249,.88);--surface-strong:#fffdf9;
+      --panel:#faf7f1;--ink:#25302a;--deep:#2e4335;--muted:#66746b;
+      --sage:#5c7a63;--sage-dark:#43604b;--mint:#e5eee6;--line:rgba(35,58,42,.09);
+      --rose:#a96d68;--amber:#a37a3e;--shadow:0 18px 46px -30px rgba(46,67,53,.34);
+    }
+    *{box-sizing:border-box}html,body{height:100%;margin:0}button,input{font:inherit}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    body{overflow:hidden;background:var(--page);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+    .app{height:100%;overflow:hidden;background:radial-gradient(ellipse at 88% 12%,rgba(220,232,217,.42),transparent 30%),radial-gradient(ellipse at 7% 92%,rgba(244,221,205,.72),transparent 34%),linear-gradient(135deg,#f8f4ec 0%,#f5f0e7 100%)}
+    .top{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid rgba(35,58,42,.08);background:rgba(246,242,234,.52);backdrop-filter:blur(14px)}
+    .title-wrap{display:flex;align-items:baseline;gap:12px}.page-title{font:500 1.35rem Georgia,"Noto Serif SC",serif}.page-sub{color:var(--muted);font-size:.78rem}
+    .top-actions{display:flex;align-items:center;gap:10px}.home-link{color:var(--sage-dark);text-decoration:none}.home-link:hover{text-decoration:underline}.history-trigger{display:flex;min-height:38px;align-items:center;gap:7px;padding:0 13px;border:1px solid rgba(92,122,99,.16);border-radius:11px;background:rgba(255,253,249,.72);color:var(--sage-dark);font-size:.72rem;font-weight:750;cursor:pointer}.history-trigger:hover{border-color:rgba(92,122,99,.3);background:var(--mint)}.history-trigger:focus-visible{outline:3px solid rgba(92,122,99,.2);outline-offset:2px}.history-actions{display:flex;align-items:center;gap:8px}.clear-history{min-height:32px;padding:0 10px;border:1px solid rgba(169,109,104,.26);border-radius:9px;background:#fff8f6;color:#8b5752;font-size:.66rem;font-weight:750;cursor:pointer}.clear-history:hover:not(:disabled){background:#f9e8e5}.clear-history:disabled{opacity:.56;cursor:wait}.clear-history:focus-visible{outline:3px solid rgba(169,109,104,.18);outline-offset:2px}
+    .assessment-content{display:flex;height:calc(100dvh - 72px);min-height:0;flex-direction:column;padding:12px 26px 18px}
+    .surface{border:1px solid rgba(255,255,255,.86);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+    .intro{display:grid;grid-template-columns:minmax(320px,1.25fr) minmax(430px,1.75fr);gap:10px;min-height:104px;margin-bottom:10px}
+    .intro-copy{position:relative;padding:14px 18px;overflow:hidden}.intro-copy:after{position:absolute;right:-36px;bottom:-92px;width:180px;height:180px;border-radius:50%;background:rgba(231,235,224,.68);content:""}
+    .intro-label{position:relative;z-index:1;display:flex;align-items:center;gap:7px;color:var(--muted);font-size:.67rem;font-weight:700}.intro-label i{width:8px;height:8px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 4px rgba(92,122,99,.12)}
+    .intro h1{position:relative;z-index:1;margin:5px 0 2px;color:var(--sage-dark);font:500 1.25rem/1.2 Georgia,"Noto Serif SC",serif}.intro p{position:relative;z-index:1;margin:0;color:var(--muted);font-size:.69rem}
+    .scale-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .guide-item{padding:11px 12px}.guide-item span{display:block;color:var(--muted);font-size:.62rem}.guide-item strong{display:block;margin-top:3px;color:var(--deep);font-size:.86rem}.guide-item small{display:block;margin-top:3px;color:var(--muted);font-size:.58rem}
+    .workbench{display:grid;grid-template-columns:210px minmax(0,1fr);flex:1;min-height:0;gap:10px}
+    .progress-pane{display:flex;min-height:0;flex-direction:column;padding:15px}.progress-pane h2{margin:0;font-size:.88rem}.progress-copy{margin:4px 0 14px;color:var(--muted);font-size:.65rem}
+    .progress-ring{position:relative;display:grid;place-items:center;width:118px;height:118px;margin:2px auto 14px;border-radius:50%;background:conic-gradient(var(--sage) var(--progress,0%),rgba(92,122,99,.12) 0)}
+    .progress-ring:before{position:absolute;inset:9px;border-radius:50%;background:var(--surface-strong);content:""}.progress-ring strong,.progress-ring span{position:relative;z-index:1}.progress-ring strong{font:600 1.55rem/1 Georgia,serif}.progress-ring span{position:absolute;margin-top:36px;color:var(--muted);font-size:.59rem}
+    .progress-meta{display:grid;gap:7px}.meta-row{display:flex;align-items:center;justify-content:space-between;padding:8px 9px;border-radius:10px;background:rgba(246,241,232,.88);font-size:.64rem}.meta-row span{color:var(--muted)}.meta-row b{font-size:.67rem}
+    .screening-note{margin-top:auto;padding-top:14px;color:var(--muted);font-size:.59rem;line-height:1.55}.screening-note:before{margin-right:5px;color:var(--sage);content:"◇"}
+    .question-pane{display:flex;min-width:0;min-height:0;flex-direction:column;overflow:hidden}
+    .pane-head{display:flex;align-items:center;justify-content:space-between;min-height:54px;padding:10px 16px;border-bottom:1px solid var(--line)}.pane-head h2{margin:0;font-size:.9rem}.pane-head span{color:var(--muted);font-size:.64rem}
+    .question-list{display:grid;grid-template-columns:minmax(0,1fr);align-content:start;gap:12px;flex:1;min-height:0;padding:16px 18px 22px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.question-list::-webkit-scrollbar{display:none}
+    .question{min-width:0;padding:17px 18px;border:1px solid var(--line);border-radius:15px;background:rgba(255,253,249,.72)}.question:focus-within{border-color:rgba(92,122,99,.3);box-shadow:0 0 0 3px rgba(92,122,99,.08)}
+    .question-head{display:flex;align-items:center;gap:11px;margin-bottom:14px}.question-no{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--mint);color:var(--sage-dark);font-size:.75rem;font-weight:800}.question-title{margin:0;font-size:.9rem;line-height:1.48;font-weight:650}.dimension{margin-left:auto;padding:4px 7px;border-radius:7px;background:rgba(229,238,230,.58);color:var(--muted);font-size:.65rem;white-space:nowrap}
+    .options{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.option{position:relative;min-width:0}.option input{position:absolute;opacity:0;pointer-events:none}.option label{display:flex;min-height:48px;align-items:center;justify-content:center;padding:7px 9px;border:1px solid rgba(74,60,43,.1);border-radius:11px;background:rgba(250,247,241,.92);color:#5f665f;font-size:.72rem;line-height:1.35;text-align:center;cursor:pointer}.option label:hover{border-color:rgba(92,122,99,.2);background:rgba(236,239,229,.72)}.option input:checked+label{border-color:rgba(92,122,99,.32);background:var(--mint);color:var(--sage-dark);font-weight:750}.option input:focus-visible+label{outline:2px solid rgba(67,96,75,.45);outline-offset:2px}
+    .action-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;padding:9px 12px 9px 16px;border-top:1px solid var(--line);background:rgba(255,253,249,.72)}.action-copy{color:var(--muted);font-size:.62rem}.action-copy b{color:var(--deep)}
+    .submit{min-width:148px;min-height:44px;padding:0 18px;border:0;border-radius:12px;background:var(--sage);color:#f4f8f3;font-weight:750;cursor:pointer;box-shadow:0 12px 22px -15px rgba(46,67,53,.7)}.submit:hover{background:var(--sage-dark)}.submit:disabled{cursor:not-allowed;opacity:.48}.submit:focus-visible,.restart:focus-visible{outline:3px solid rgba(92,122,99,.24);outline-offset:2px}
+    .loading,.error{display:grid;place-items:center;grid-column:1/-1;min-height:260px;color:var(--muted);font-size:.72rem;text-align:center}.error button{min-height:40px;margin-top:12px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface-strong);color:var(--deep);cursor:pointer}
+    .result-backdrop{position:fixed;inset:72px 0 0 var(--rail-open);z-index:38;background:rgba(38,50,42,.16);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity 240ms ease}.app:not(.sidebar-open) .result-backdrop{left:var(--rail)}.result-backdrop.visible{opacity:1;pointer-events:auto}
+    .result{position:fixed;z-index:40;top:84px;right:14px;bottom:14px;display:flex;width:min(720px,calc(100vw - var(--rail-open) - 42px));min-height:0;flex-direction:column;gap:10px;padding:12px;border:1px solid rgba(255,255,255,.9);border-radius:22px;background:rgba(248,245,238,.97);box-shadow:-24px 22px 70px -32px rgba(68,53,36,.34);backdrop-filter:blur(20px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;opacity:0;pointer-events:none;transform:translateX(calc(100% + 28px));transition:transform 360ms cubic-bezier(.22,.8,.25,1),opacity 220ms ease}.result::-webkit-scrollbar{display:none}.result.visible{opacity:1;pointer-events:auto;transform:none}
+    .drawer-head{display:flex;align-items:center;justify-content:space-between;min-height:42px;padding:0 4px 0 6px}.drawer-head h2{margin:0;font:500 1.08rem Georgia,"Noto Serif SC",serif}.drawer-head span{margin-left:8px;color:var(--muted);font-size:.62rem}.drawer-close{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:11px;background:var(--surface-strong);color:var(--deep);font-size:1.1rem;cursor:pointer}.drawer-close:hover{background:var(--mint)}.drawer-close:focus-visible{outline:3px solid rgba(92,122,99,.22);outline-offset:2px}
+    .result-summary{display:grid;grid-template-columns:1fr;gap:10px}
+    .score-card{display:flex;align-items:center;gap:18px;padding:18px 20px}.score-number{display:grid;place-items:center;flex:0 0 108px;width:108px;height:108px;border-radius:50%;background:var(--mint);color:var(--sage-dark)}.score-number strong{font:600 2rem/1 Georgia,serif}.score-number span{font-size:.6rem}.score-copy h1{margin:0;color:var(--sage-dark);font:500 1.45rem/1.2 Georgia,"Noto Serif SC",serif}.score-copy p{margin:6px 0 0;color:var(--muted);font-size:.7rem}
+    .range-card{padding:16px 18px}.range-card h2{margin:0 0 12px;font-size:.85rem}.range-track{position:relative;height:16px;border-radius:99px;background:linear-gradient(90deg,#dce8de 0 37.33%,#ebe7c9 37.33% 50.67%,#ead8bd 50.67% 64%,#ecd1cd 64%);overflow:visible}.range-marker{position:absolute;top:-6px;left:var(--marker,0%);width:4px;height:28px;border-radius:4px;background:var(--deep);box-shadow:0 0 0 4px rgba(46,67,53,.1);transform:translateX(-50%)}.range-labels{display:grid;grid-template-columns:28fr 10fr 10fr 28fr;margin-top:10px;color:var(--muted);font-size:.58rem}.range-labels span:nth-child(n+2){text-align:center}.range-labels span:last-child{text-align:right}.range-foot{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted);font-size:.62rem}.range-foot b{color:var(--deep)}
+    .result-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.metric{padding:11px 13px}.metric span{display:block;color:var(--muted);font-size:.61rem}.metric strong{display:block;margin-top:3px;font-size:.86rem}
+    .result-detail{display:grid;grid-template-columns:1fr;gap:10px;min-height:0}.advice,.explain{min-height:0;padding:15px 17px}.advice h2,.explain h2{margin:0 0 8px;font-size:.9rem}.advice p,.explain p{margin:0;color:var(--muted);font-size:.72rem;line-height:1.7}.advice-list{display:grid;gap:8px;margin-top:12px}.advice-item{display:flex;gap:9px;padding:11px 12px;border-radius:11px;background:rgba(246,241,232,.82);font-size:.69rem}.advice-item i{color:var(--sage);font-style:normal}.quant-table{width:100%;margin-top:8px;border-collapse:separate;border-spacing:0 5px;font-size:.68rem}.quant-table td{padding:9px 10px;background:rgba(250,247,241,.9)}.quant-table td:first-child{border-radius:8px 0 0 8px;color:var(--muted)}.quant-table td:last-child{border-radius:0 8px 8px 0;font-weight:700}.quant-table tr.active td{background:var(--mint);color:var(--sage-dark)}
+    .result-actions{display:flex;gap:8px;margin-top:12px}.restart{min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-strong);color:var(--deep);font-weight:700;cursor:pointer}
+    .history-backdrop{position:fixed;inset:72px 0 0 var(--rail-open);z-index:42;background:rgba(38,50,42,.16);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity 220ms ease}.app:not(.sidebar-open) .history-backdrop{left:var(--rail)}.history-backdrop.visible{opacity:1;pointer-events:auto}.history-drawer{position:fixed;z-index:44;top:84px;right:14px;bottom:14px;display:flex;width:min(540px,calc(100vw - var(--rail-open) - 42px));min-height:0;flex-direction:column;padding:12px;border:1px solid rgba(255,255,255,.9);border-radius:22px;background:rgba(248,245,238,.98);box-shadow:-24px 22px 70px -32px rgba(68,53,36,.34);backdrop-filter:blur(20px);opacity:0;pointer-events:none;transform:translateX(calc(100% + 28px));transition:transform 340ms cubic-bezier(.22,.8,.25,1),opacity 200ms ease}.history-drawer.visible{opacity:1;pointer-events:auto;transform:none}.history-heading{display:flex;align-items:baseline;gap:9px}.history-heading span{color:var(--muted);font-size:.64rem}.history-list{display:grid;align-content:start;gap:9px;flex:1;min-height:0;margin-top:8px;padding:2px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.history-list::-webkit-scrollbar{display:none}.history-card{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:13px;width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,253,249,.76);color:var(--ink);text-align:left;cursor:pointer}.history-card:hover{border-color:rgba(92,122,99,.25);background:var(--surface-strong)}.history-card:focus-visible{outline:3px solid rgba(92,122,99,.18);outline-offset:1px}.history-score{display:grid;place-items:center;width:58px;height:58px;border-radius:15px;background:var(--mint);color:var(--sage-dark)}.history-score strong{font:600 1.25rem/1 Georgia,serif}.history-score small{margin-top:3px;font-size:.55rem}.history-copy{min-width:0}.history-copy strong{display:block;color:var(--deep);font-size:.77rem}.history-copy time{display:block;margin-top:3px;color:var(--muted);font-size:.61rem}.history-copy p{display:-webkit-box;margin:6px 0 0;color:var(--muted);font-size:.64rem;line-height:1.5;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical}.history-arrow{color:var(--sage);font-size:1rem}.history-empty{display:grid;place-items:center;min-height:240px;padding:24px;color:var(--muted);text-align:center}.history-empty b{display:block;margin-bottom:5px;color:var(--deep);font-size:.82rem}.history-empty span{font-size:.67rem}.history-loading{display:grid;place-items:center;min-height:220px;color:var(--muted);font-size:.7rem}
+    .toast{position:fixed;z-index:100;right:24px;bottom:24px;max-width:360px;padding:11px 14px;border:1px solid rgba(169,109,104,.2);border-radius:12px;background:#fff8f6;color:#7d4f4c;box-shadow:var(--shadow);font-size:.68rem;opacity:0;pointer-events:none;transform:translateY(8px);transition:.18s ease}.toast.show{opacity:1;transform:none}
+    .app.sidebar-open>.assessment-content{margin-left:var(--rail-open);width:calc(100% - var(--rail-open))}.app:not(.sidebar-open)>.assessment-content{margin-left:var(--rail);width:calc(100% - var(--rail))}.app>.assessment-content{transition:margin-left 260ms var(--nav-ease),width 260ms var(--nav-ease)}
+    @media(max-width:1180px){body{overflow:auto}.app{height:auto;min-height:100%}.assessment-content{height:auto;min-height:calc(100dvh - 72px)}.intro{grid-template-columns:1fr}.workbench{grid-template-columns:1fr}.progress-pane{display:grid;grid-template-columns:auto 120px 1fr auto;align-items:center;gap:14px}.progress-pane h2,.progress-copy{grid-column:1}.progress-copy{margin:0}.progress-ring{grid-column:2;grid-row:1/3;margin:0}.progress-meta{grid-column:3;grid-row:1/3}.screening-note{grid-column:4;grid-row:1/3;margin:0;max-width:160px;padding:0}.question-pane{min-height:620px}.result-detail{min-height:360px}}
+    @media(max-width:860px){.app.sidebar-open>.assessment-content{margin-left:min(86vw,var(--rail-open));width:calc(100% - min(86vw,var(--rail-open)))}.assessment-content{padding:12px}.page-sub{display:none}.result{width:min(680px,calc(100vw - 100px))}.result-backdrop,.history-backdrop{left:var(--rail)}.history-drawer{width:min(520px,calc(100vw - 100px))}.result-metrics{grid-template-columns:1fr 1fr}}
+    @media(max-width:650px){.mood-sidebar.is-open{width:var(--rail)}.app.sidebar-open>.assessment-content,.app:not(.sidebar-open)>.assessment-content{margin-left:var(--rail);width:calc(100% - var(--rail))}.top{padding:0 18px}.home-link{display:none}.intro{display:block}.scale-guide{grid-template-columns:1fr 1fr;margin-top:8px}.progress-pane{display:block}.progress-ring{margin:10px auto}.progress-meta{margin-bottom:12px}.screening-note{max-width:none}.question-list{padding:12px}.question{padding:15px}.options{grid-template-columns:1fr 1fr}.option label{font-size:.76rem}.action-bar{align-items:flex-start;flex-direction:column}.submit{width:100%}.result,.history-drawer{top:78px;right:7px;bottom:7px;width:calc(100vw - var(--rail) - 14px);padding:9px}.history-card{grid-template-columns:56px minmax(0,1fr) auto;padding:11px}.history-score{width:52px;height:52px}.score-card{align-items:flex-start;flex-direction:column}.result-metrics{grid-template-columns:1fr}.result-backdrop,.history-backdrop{inset:72px 0 0 var(--rail)}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+    @media(prefers-reduced-transparency:reduce){.surface{background:#fffdf9;backdrop-filter:none}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div class="title-wrap"><span class="page-title">心理测评</span><span class="page-sub">标准量化 · 结果可解释</span></div>
+    <div class="top-actions"><button class="history-trigger" id="history-trigger" type="button"><span aria-hidden="true">◷</span>历史测评</button><a class="home-link" href="index.html">返回首页</a></div>
+  </header>
+  <section class="assessment-content content" id="main">
+    <div class="intro" id="assessment-intro">
+      <article class="intro-copy surface">
+        <div class="intro-label"><i></i><span>SDS 抑郁情绪筛查</span></div>
+        <h1>回顾你最近一周的真实状态</h1>
+        <p>共20题，通常需要3至5分钟。请选择最接近实际情况的频率。</p>
+      </article>
+      <div class="scale-guide" aria-label="SDS标准分区间">
+        <article class="guide-item surface"><span>正常范围</span><strong>25–52</strong><small>暂未发现明显抑郁情绪</small></article>
+        <article class="guide-item surface"><span>轻度</span><strong>53–62</strong><small>建议继续观察情绪变化</small></article>
+        <article class="guide-item surface"><span>中度</span><strong>63–72</strong><small>建议接受进一步评估</small></article>
+        <article class="guide-item surface"><span>重度</span><strong>≥ 73</strong><small>建议尽快寻求专业支持</small></article>
+      </div>
+    </div>
+
+    <div class="workbench" id="workbench">
+      <aside class="progress-pane surface">
+        <h2>作答进度</h2>
+        <p class="progress-copy">所有题目完成后才能生成量化结果。</p>
+        <div class="progress-ring" id="progress-ring"><strong id="progress-number">0/20</strong><span>已完成</span></div>
+        <div class="progress-meta">
+          <div class="meta-row"><span>计分范围</span><b>1–4 分</b></div>
+          <div class="meta-row"><span>原始总分</span><b>20–80</b></div>
+          <div class="meta-row"><span>标准分换算</span><b>原始分 × 1.25</b></div>
+        </div>
+        <p class="screening-note">测评结果用于心理状态筛查，不构成医学诊断。</p>
+      </aside>
+
+      <form class="question-pane surface" id="assessment-form">
+        <div class="pane-head"><h2>测评题目</h2><span id="question-status">正在读取标准题目</span></div>
+        <div class="question-list" id="question-list"><div class="loading">正在加载测评题目…</div></div>
+        <div class="action-bar">
+          <span class="action-copy">请根据<b>最近一周</b>的情况作答，不需要反复斟酌。</span>
+          <button class="submit" id="submit-assessment" type="submit" disabled>完成全部题目后提交</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="result-backdrop" id="result-backdrop"></div>
+    <section class="result" id="result" aria-live="polite" aria-hidden="true">
+      <div class="drawer-head"><div><h2>测评结果<span>标准量化与建议</span></h2></div><button class="drawer-close" id="result-close" type="button" aria-label="关闭测评结果">×</button></div>
+      <div class="result-summary">
+        <article class="score-card surface">
+          <div class="score-number"><strong id="result-score">—</strong><span>标准分</span></div>
+          <div class="score-copy"><h1 id="result-level">等待结果</h1><p id="result-summary-copy"></p></div>
+        </article>
+        <article class="range-card surface">
+          <h2>标准分所在区间</h2>
+          <div class="range-track"><i class="range-marker" id="range-marker"></i></div>
+          <div class="range-labels"><span>正常 25–52</span><span>轻度 53–62</span><span>中度 63–72</span><span>重度 ≥73</span></div>
+          <div class="range-foot"><span>分数越高，提示近期抑郁情绪越明显</span><b id="range-position">—</b></div>
+        </article>
+      </div>
+      <div class="result-metrics">
+        <article class="metric surface"><span>原始分</span><strong id="raw-score">— / 80</strong></article>
+        <article class="metric surface"><span>标准分</span><strong id="standard-score">— / 100</strong></article>
+        <article class="metric surface"><span>测评量表</span><strong>SDS · 20题</strong></article>
+        <article class="metric surface"><span>结果属性</span><strong>筛查参考</strong></article>
+      </div>
+      <div class="result-detail">
+        <article class="advice surface">
+          <h2>结果说明与下一步</h2>
+          <p id="result-suggestion"></p>
+          <div class="advice-list">
+            <div class="advice-item"><i>◇</i><span>这是一项自评筛查，单次分数不能代替医生或心理专业人员的诊断。</span></div>
+            <div class="advice-item"><i>◇</i><span>如果情绪困扰持续两周以上、影响学习生活，建议进行专业评估。</span></div>
+            <div class="advice-item"><i>◇</i><span>如果出现伤害自己的想法或现实危险，请立即联系可信赖的人并寻求紧急帮助。</span></div>
+          </div>
+          <div class="result-actions"><button class="restart" id="restart" type="button">重新测评</button></div>
+        </article>
+        <article class="explain surface">
+          <h2>标准量化表</h2>
+          <p>标准分由服务端统一计算，积极表述题会自动反向计分。</p>
+          <table class="quant-table" aria-label="SDS标准分分级">
+            <tbody>
+              <tr data-level="normal"><td>25–52</td><td>正常范围</td></tr>
+              <tr data-level="mild"><td>53–62</td><td>轻度抑郁情绪</td></tr>
+              <tr data-level="moderate"><td>63–72</td><td>中度抑郁情绪</td></tr>
+              <tr data-level="severe"><td>≥73</td><td>重度抑郁情绪</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+    <div class="history-backdrop" id="history-backdrop"></div>
+    <section class="history-drawer" id="history-drawer" aria-hidden="true" aria-labelledby="history-title">
+      <div class="drawer-head"><div class="history-heading"><h2 id="history-title">历史测评</h2><span id="history-count">最近 20 条</span></div><div class="history-actions"><button class="clear-history" id="clear-assessment-records" type="button">清空记录</button><button class="drawer-close" id="history-close" type="button" aria-label="关闭历史测评">×</button></div></div>
+      <div class="history-list" id="history-list"><div class="history-loading">正在读取历史测评…</div></div>
+    </section>
+  </section>
+  <div class="toast" id="toast" role="status"></div>
+</main>
+<script src="sidebar.js"></script>
+<script src="assessment.js"></script>
+</body>
+</html>

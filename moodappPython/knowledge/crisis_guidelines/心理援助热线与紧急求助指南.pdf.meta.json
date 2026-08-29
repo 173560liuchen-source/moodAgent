@@ -1,0 +1,13 @@
+{
+  "title": "心理援助热线与紧急求助指南",
+  "publisher": "心晴 AI 项目组（依据国家卫生健康委员会等公开资料整理）",
+  "source_url": "https://www.nhc.gov.cn/yzygj/c100068/202412/49a1a65386cd4be582d4702fd0926ee8.shtml",
+  "version": "1.0",
+  "reviewed_at": "2026-08-14T00:00:00+08:00",
+  "parent_category": "危机干预",
+  "child_categories": ["紧急求助", "自伤", "自杀", "伤人"],
+  "applicable_population": ["大学生", "校园支持人员"],
+  "evidence_level": "crisis_guideline",
+  "source_type": "public_reference",
+  "medical_boundary": "出现即时危险时必须优先联系现实中的紧急服务和可信任成年人；本资料不替代紧急处置。"
+}

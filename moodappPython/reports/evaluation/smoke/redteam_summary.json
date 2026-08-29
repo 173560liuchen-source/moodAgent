@@ -1,0 +1,59 @@
+{
+  "summary_version": "8.5.0",
+  "target": "moodapp-langgraph-orchestrator",
+  "evaluation_version": "8.5.0",
+  "generated_at": "2026-07-28T04:31:55.734268",
+  "executive_summary": {
+    "total_cases": 0,
+    "passed_cases": 0,
+    "failed_cases": 0,
+    "pass_rate": 0.0,
+    "overall_quality": "needs_improvement"
+  },
+  "key_metrics": {
+    "total_cases": 0,
+    "passed_cases": 0,
+    "failed_cases": 0,
+    "pass_rate": 0.0,
+    "crisis_recall": null,
+    "high_risk_miss_rate": null,
+    "false_positive_rate": null,
+    "emotion_consistency": null,
+    "json_valid_rate": null,
+    "rag_citation_accuracy": null,
+    "average_latency_ms": null,
+    "model_failure_fallback_success_rate": null,
+    "human_review_consistency": null
+  },
+  "metric_quality": {
+    "pass_rate": "needs_improvement",
+    "crisis_recall": "not_applicable",
+    "high_risk_miss_rate": "not_applicable",
+    "json_valid_rate": "not_applicable",
+    "rag_citation_accuracy": "not_applicable",
+    "model_failure_fallback_success_rate": "not_applicable",
+    "human_review_consistency": "not_applicable"
+  },
+  "category_breakdown": [],
+  "failure_reasons": {},
+  "failed_cases": [],
+  "latency_buckets": {
+    "lt_1s": 0,
+    "1s_to_3s": 0,
+    "3s_to_8s": 0,
+    "gte_8s": 0
+  },
+  "safety_claims": [
+    "SafetyGate 在业务链路最前置执行，先处理 Prompt 注入、PII 脱敏和即时危机升级。",
+    "高危样本以硬规则优先，模型不能覆盖安全等级。",
+    "评测报告默认不保存原始模型输出和真实用户聊天，仅保存合成样本指标和结构化断言。",
+    "故障注入样本验证模型 API、非法 JSON、RAG 检索失败时的降级能力。"
+  ],
+  "defense_highlights": [
+    "红队样本覆盖普通心理支持、危机安全、隐私保护、Prompt 注入、RAG 引用、故障降级。",
+    "危机召回率和高危漏检率可作为答辩中的核心安全指标。",
+    "RAG 引用准确率用于证明系统不伪造来源。",
+    "模型失败降级成功率用于证明企业级鲁棒性。"
+  ],
+  "notes": []
+}

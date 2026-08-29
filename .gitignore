@@ -1,0 +1,42 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+**/application-local.yml
+**/application-local.yaml
+
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/.pytest_cache/
+
+# Node.js / frontend
+**/node_modules/
+**/dist/
+**/.vite/
+**/coverage/
+**/test-results/
+**/playwright-report/
+**/blob-report/
+
+# Java / Maven / Gradle
+**/target/
+**/build/
+**/.gradle/
+
+# IDE and operating-system files
+.idea/
+**/.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and local runtime state
+*.log
+*.err.log
+.runtime/
