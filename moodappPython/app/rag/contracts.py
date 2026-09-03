@@ -6,6 +6,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 
+
 KnowledgeCategory = Literal[
     "student_psychology",
     "stress_management",
@@ -30,6 +31,7 @@ SUPPORTED_DOCUMENT_EXTENSIONS: tuple[str, ...] = (
     ".docx",
 )
 
+#===================知识库定义 =====================
 
 class ParsedDocumentMetadata(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -55,6 +57,7 @@ class ParsedDocumentMetadata(BaseModel):
     source_type: Literal["project_curated", "public_reference", "school_resource"] | None = None
 
 
+#单个已解析的知识文档
 class ParsedKnowledgeDocument(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -65,6 +68,7 @@ class ParsedKnowledgeDocument(BaseModel):
     metadata: ParsedDocumentMetadata
 
 
+#解析错误信息
 class DocumentParseError(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -74,6 +78,7 @@ class DocumentParseError(BaseModel):
     message: str = Field(min_length=1)
 
 
+#解析操作的汇总统计
 class KnowledgeParseSummary(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

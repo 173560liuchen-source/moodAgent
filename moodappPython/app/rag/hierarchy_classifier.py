@@ -21,7 +21,7 @@ class HierarchyClassification(BaseModel):
     """仅分类，不产生检索过滤条件，供下一阶段接入分层检索。"""
 
     query: str
-    matches: list[HierarchyMatch] = Field(default_factory=list)
+    matches: list[HierarchyMatch] = Field(default_factory=list)  #匹配到的分类结构
     classifier_version: str = "hierarchy-rules-1.0.0"
 
 
@@ -80,6 +80,8 @@ class KnowledgeHierarchyClassifier:
                     reasons.append(f"{child}：命中“{'、'.join(hits[:3])}”")
             if children:
                 confidence = min(0.95, round(0.60 + 0.10 * len(children) + 0.03 * len(reasons), 2))
+                #基础值：0.60；  每增加一个子项：增加 0.10；  每增加一个原因：增加 0.03；  上限限制：最大为 0.95（通过 min 函数限制）
+                
                 matches.append(HierarchyMatch(
                     parent_category=parent,
                     child_categories=children,

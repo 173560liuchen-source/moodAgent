@@ -22,7 +22,7 @@ moodAgent 是一个面向心理陪伴场景的全栈原型系统。用户通过�
 
 | 目录 | 说明 |
 | --- | --- |
-| `1/` | Web 前端页面与端到端测试 |
+| `frontend/` | Web 前端页面与端到端测试 |
 | `moodapp/demo/` | Java Spring Boot 业务后端 |
 | `moodappPython/` | Python 多智能体与 RAG 服务 |
 | `moodappPython/knowledge/` | 本地知识库资料 |
@@ -97,7 +97,7 @@ python -m unittest discover -s tests -v
 前端冒烟测试：
 
 ```powershell
-cd 1
+cd frontend
 npm install
 npm run test:smoke
 ```

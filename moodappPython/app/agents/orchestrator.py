@@ -219,8 +219,8 @@ class Orchestrator:
         self.evaluator_agent = self.registry.create("evaluator")
         self.audit_agent = self.registry.create("audit")
         self.safety_gate = self.registry.create("safety_gate")
-        self.risk_router = RiskConstrainedRouter()
-        self._workflow: Any | None = None
+        self.risk_router = RiskConstrainedRouter()    # 风险约束路由器
+        self._workflow: Any | None = None             # 工作流（延迟构建）
 
     async def run(self, request: OrchestrationRequest) -> OrchestrationResult:
         workflow = self._get_workflow()

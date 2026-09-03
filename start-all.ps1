@@ -30,7 +30,7 @@ function Start-ServiceProcess($Name, $FilePath, $Arguments, $WorkingDirectory, $
     Write-Host "$Name started, PID=$($proc.Id), port $Port."
 }
 
-Start-ServiceProcess 'frontend' 'python' @('-m','http.server','5500') "$Root\1" 5500
+Start-ServiceProcess 'frontend' 'python' @('-m','http.server','5500') "$Root\frontend" 5500
 
 $python = Join-Path $Root 'moodappPython\.venv\Scripts\python.exe'
 if (-not (Test-Path $python)) { $python = 'python' }

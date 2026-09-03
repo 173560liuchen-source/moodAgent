@@ -39,8 +39,8 @@ class ModelGateway:
     def __init__(self) -> None:
         self._failure_count = 0
         self._opened_at: float | None = None
-        self._state_lock = asyncio.Lock()
-        self._metrics_lock = asyncio.Lock()
+        self._state_lock = asyncio.Lock()  #熔断状态的互斥锁
+        self._metrics_lock = asyncio.Lock()  #指标的互斥锁
         self._total_requests = 0
         self._successful_requests = 0
         self._failed_requests = 0
@@ -56,29 +56,36 @@ class ModelGateway:
     def _utc_now() -> str:
         return datetime.now(timezone.utc).isoformat()
 
+    #请求来了
     async def _record_request_started(self) -> None:
         async with self._metrics_lock:
             self._total_requests += 1
 
+    #请求重试了
     async def _record_retry(self) -> None:
         async with self._metrics_lock:
             self._retry_count += 1
 
+    #请求被熔断了
     async def _record_circuit_rejection(self) -> None:
         async with self._metrics_lock:
             self._circuit_rejections += 1
 
+    #请求结束了
     async def _record_request_finished(self, *, success: bool, started_at: float) -> None:
+        #  算这次请求花了多少毫秒
         latency_ms = (time.perf_counter() - started_at) * 1000
+
         async with self._metrics_lock:
-            self._total_latency_ms += latency_ms
+            self._total_latency_ms += latency_ms  # 累加总延迟（后面算平均值）
             if success:
                 self._successful_requests += 1
-                self._last_success_at = self._utc_now()
+                self._last_success_at = self._utc_now()  # 记录最后一次成功的时间
             else:
                 self._failed_requests += 1
-                self._last_failure_at = self._utc_now()
+                self._last_failure_at = self._utc_now()  # 记录最后一次失败的时间
 
+    #获取指标
     async def snapshot(self) -> dict[str, Any]:
         async with self._state_lock:
             opened_at = self._opened_at
@@ -87,7 +94,7 @@ class ModelGateway:
                 circuit_state = "closed"
                 reset_remaining_seconds = 0.0
             else:
-                elapsed = time.monotonic() - opened_at
+                elapsed = time.monotonic() - opened_at  #从熔断到现在过了多少秒
                 reset_remaining_seconds = max(
                     0.0,
                     MODEL_CIRCUIT_RESET_SECONDS - elapsed,
@@ -128,6 +135,7 @@ class ModelGateway:
                 },
             }
 
+    #确保熔断器
     async def _ensure_circuit(self) -> None:
         async with self._state_lock:
             if self._opened_at is None:
@@ -138,17 +146,20 @@ class ModelGateway:
                 return
             raise CircuitOpenError("模型服务熔断中，请稍后重试")
 
+    #记录成功
     async def _record_success(self) -> None:
         async with self._state_lock:
             self._failure_count = 0
             self._opened_at = None
 
+    #记录失败
     async def _record_failure(self) -> None:
         async with self._state_lock:
             self._failure_count += 1
             if self._failure_count >= MODEL_CIRCUIT_FAILURE_THRESHOLD:
                 self._opened_at = time.monotonic()
 
+    #获取客户端
     async def _get_client(self) -> httpx.AsyncClient:
         if self._client is not None and not self._client.is_closed:
             return self._client
@@ -164,14 +175,17 @@ class ModelGateway:
                 )
             return self._client
 
+    #关闭客户端
     async def aclose(self) -> None:
         if self._client is not None and not self._client.is_closed:
             await self._client.aclose()
 
+    #获取模型名称
     @property
     def model_name(self) -> str:
         return MODEL_NAME
 
+    #发送POST请求
     async def _post(self, url: str, headers: dict[str, str], payload: dict) -> dict:
         client = await self._get_client()
         response = await client.post(url, headers=headers, json=payload)
@@ -180,6 +194,7 @@ class ModelGateway:
         response.encoding = "utf-8"
         return response.json()
 
+    #流式聊天
     async def stream_chat(self, request: ModelChatRequest) -> AsyncIterator[str]:
         """Yield model deltas from an OpenAI-compatible SSE response."""
         started_at = time.perf_counter()
@@ -242,6 +257,7 @@ class ModelGateway:
         finally:
             await self._record_request_finished(success=success, started_at=started_at)
 
+    #普通聊天
     async def chat(self, request: ModelChatRequest) -> ModelChatResponse:
         started_at = time.perf_counter()
         await self._record_request_started()

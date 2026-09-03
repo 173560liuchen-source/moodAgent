@@ -49,6 +49,13 @@ class KnowledgeChunker:
         if self.config.max_chars >= self.config.parent_max_chars:
             raise KnowledgeChunkerError("child max_chars must be smaller than parent_max_chars")
 
+
+
+# 文档分块主流程：
+# 分割成块 - _split_into_blocks 将文档按标题和语义分割
+# 构建父块 - _build_chunk_drafts 创建大粒度父块
+# 为每个父块创建子块 - _child_blocks 进一步拆分为小粒度句子级子块
+# 生成唯一ID - 使用 SHA256 哈希确保去重
     def chunk_document(self, document: ParsedKnowledgeDocument) -> list[KnowledgeChunk]:
         blocks = self._split_into_blocks(document.content)
         parent_drafts = self._build_chunk_drafts(
@@ -100,6 +107,12 @@ class KnowledgeChunker:
 
         return chunks
 
+# 构建完整的 KnowledgeChunk 对象，包含：
+
+# 基础信息（source, category, chunk_id, document_id）
+# 内容信息（content, heading_path, char_start/end）
+# 统计信息（token_count_estimate, content_hash）
+# 丰富元数据（file_path, title, applicable_audience 等）
     def _knowledge_chunk(
         self,
         *,
@@ -159,6 +172,12 @@ class KnowledgeChunker:
             },
         )
 
+
+# 从父块中提取子块（句子级别）：
+
+# 按标点符号拆分句子
+# 短句子直接作为子块
+# 长句子调用 _hard_split_text 硬切割
     def _child_blocks(self, parent: ChunkDraft) -> list[TextBlock]:
         blocks: list[TextBlock] = []
         cursor = 0
@@ -184,6 +203,12 @@ class KnowledgeChunker:
                 ))
         return blocks
 
+
+# 批量处理多个文档：
+
+# 逐个调用 chunk_document
+# 捕获异常并记录到 errors 列表
+# 返回包含 chunks、errors、config 的汇总结果
     def chunk_documents(self, documents: list[ParsedKnowledgeDocument]) -> ChunkingSummary:
         chunks: list[KnowledgeChunk] = []
         errors: list[ChunkingError] = []
@@ -210,6 +235,13 @@ class KnowledgeChunker:
             errors=errors,
         )
 
+# 将文档按以下规则分割成 TextBlock：
+
+# 遇到 Markdown 标题 - 保存当前块，更新标题层级
+# 遇到页码/页脚 - 丢弃页 artifacts
+# 遇到空行 - 结束当前块
+# 遇到新语义单元 - 如列表项、重点提示，开始新块
+# 收集行 - 累积到 pending_lines，最后统一处理
     def _split_into_blocks(self, content: str) -> list[TextBlock]:
         blocks: list[TextBlock] = []
         headings: list[str] = []
@@ -292,6 +324,13 @@ class KnowledgeChunker:
         )
         return blocks
 
+
+# 识别标题类型：
+
+# Markdown 标题: # 标题 (匹配 #{1,6})
+# 编号标题: 1. 标题 或 1、标题
+# 特殊标题: "权威来源与更新说明"
+# 返回 (level, title) 元组
     @staticmethod
     def _heading_info(text: str) -> tuple[int, str] | None:
         markdown = re.match(r"^(#{1,6})\s+(.+?)\s*$", text)
@@ -309,6 +348,12 @@ class KnowledgeChunker:
             return 1, text
         return None
 
+    
+# 检测页面伪元素：
+
+# 第 X 页格式
+# X | 第X页格式
+# "心晴 AI · ..." 页脚标记
     @staticmethod
     def _is_page_artifact(text: str) -> bool:
         return bool(
@@ -317,6 +362,11 @@ class KnowledgeChunker:
             or re.match(r"^心晴\s*AI\s*[·・].+$", text, flags=re.IGNORECASE)
         )
 
+
+# 判断是否开始新的语义单元：
+
+# 列表符号: •●▪◦ 或数字编号
+# 关键词: "核心原则"、"先说明"、"重要说明"、"紧急提示"、"禁止"、"系统边界" 等
     @staticmethod
     def _starts_new_semantic_unit(text: str) -> bool:
         return bool(
@@ -330,6 +380,11 @@ class KnowledgeChunker:
             )
         )
 
+# 从文档中提取带标签的值：
+
+# 支持多标签（如 "适用对象" / "适用人群"）
+# 使用正则表达式匹配 标签：值 格式
+# 返回第一个匹配的值的去除后字符串
     @staticmethod
     def _extract_labeled_value(content: str, labels: tuple[str, ...]) -> str | None:
         for label in labels:
@@ -338,6 +393,12 @@ class KnowledgeChunker:
                 return match.group(1).strip()
         return None
 
+
+# 将积累的待处理行转换为 TextBlock：
+
+# 过滤空内容
+# 计算首尾空格长度
+# 调用 _split_oversized_block 处理超大块
     def _flush_pending_block(
         self,
         blocks: list[TextBlock],
@@ -365,6 +426,12 @@ class KnowledgeChunker:
             )
         )
 
+# 处理超过 parent_max_chars 的大块：
+
+# 如果符合条件直接返回
+# 否则按句子单位拆分
+# 短句子规范化后加入 blocks
+# 长句子递归调用 _hard_split_text 硬切割
     def _split_oversized_block(
         self,
         text: str,
@@ -403,6 +470,14 @@ class KnowledgeChunker:
             ))
 
         return blocks
+
+
+# 核心分块算法：
+
+# 标题变化检测 - 标题变化时触发当前块输出
+# 大小超限检测 - 合并后超过 max_chars 时触发输出
+# 最小尺寸检查 - 小块可能与下一块合并
+# 重叠处理 - 通过 _with_overlap 添加上下文重叠
 
     def _build_chunk_drafts(
         self,
@@ -476,6 +551,12 @@ class KnowledgeChunker:
 
         return drafts
 
+
+# 为分块添加与前一块的重叠：
+
+# 取前一块末尾 overlap_chars 个字符
+# 剥离空白后验证有效性
+# 拼接 [overlap][current] 增强连续性
     def _with_overlap(
         self,
         drafts: list[ChunkDraft],

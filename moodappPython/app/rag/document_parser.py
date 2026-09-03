@@ -22,23 +22,23 @@ PARSER_VERSION = "1.0.0"
 class KnowledgeDocumentParserError(Exception):
     pass
 
-
+#不支持的文件类型错误
 class UnsupportedDocumentTypeError(KnowledgeDocumentParserError):
     pass
 
-
+#空文件错误
 class EmptyDocumentError(KnowledgeDocumentParserError):
     pass
 
 
 class KnowledgeDocumentParser:
     def __init__(self, knowledge_root: str | Path) -> None:
-        self.knowledge_root = Path(knowledge_root).resolve()
+        self.knowledge_root = Path(knowledge_root).resolve() #把这个“路径对象”变成“绝对路径”
 
     def parse_file(self, file_path: str | Path) -> ParsedKnowledgeDocument:
         path = Path(file_path).resolve()
         category = self._category_for_path(path)
-        extension = path.suffix.lower()
+        extension = path.suffix.lower() #获取文件后缀的小写
 
         if extension not in SUPPORTED_DOCUMENT_EXTENSIONS:
             raise UnsupportedDocumentTypeError(f"Unsupported document type: {extension}")
@@ -242,9 +242,12 @@ class KnowledgeDocumentParser:
 
     @staticmethod
     def _document_id(category: str, path: Path, knowledge_root: Path) -> str:
-        safe_stem = re.sub(r"[^a-zA-Z0-9_-]+", "-", path.stem).strip("-").lower()
+        safe_stem = re.sub(r"[^a-zA-Z0-9_-]+", "-", path.stem).strip("-").lower()  
+        #path.stem：去掉文件的扩展名，txt,pdf,docx等
         if not safe_stem:
             safe_stem = "document"
+
+        #获取文件的相对路径，path到knowledge_root的相对路径    
         relative_key = path.relative_to(knowledge_root).as_posix().lower()
         path_hash = hashlib.sha256(relative_key.encode("utf-8")).hexdigest()[:12]
         return f"{category}-{safe_stem}-{path_hash}"
